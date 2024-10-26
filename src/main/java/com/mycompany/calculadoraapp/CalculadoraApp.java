@@ -16,8 +16,7 @@ public class CalculadoraApp {
 		//Variable donde almacenamos el valor seleccionado
 		//del menú
 		int opcion = 0;
-		Scanner sc;
-		sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		
 		do {
 
