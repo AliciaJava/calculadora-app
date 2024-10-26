@@ -5,7 +5,10 @@
 package com.mycompany.calculadoraapp;
 
 import java.util.Scanner;
-
+/**
+ * 
+ * @author 2023
+ */
 public class CalculadoraApp {
 
     public static void main(String[] args) {
@@ -15,16 +18,7 @@ public class CalculadoraApp {
         int opcion = 0;
         try (Scanner sc = new Scanner(System.in)) {
             do {
-                //Imprimimos por consola el menú
-                System.out.println("\n"); //Este caracter especial nos permite imprimir una línea en blanco
-                System.out.println("***** CALCULADORA *****");
-                System.out.println("1. Sumar");
-                System.out.println("2. Restar");
-                System.out.println("3. Multiplicar");
-                System.out.println("4. Dividir");
-                System.out.println("5. Resto");
-                System.out.println("0. Salir del programa");
-                System.out.print("Introduzca una opcion valida: ");
+                showMenu();
 
                 //En los mensajes opción válida he tenido que sustituido
                 //por opcion y valida sin tilde porque aparece el símbolo 
@@ -83,5 +77,18 @@ public class CalculadoraApp {
             //He tenido que sustituir ejecución con tilde y sustituirla sin 
             //tilde porque me aparece un símbolo de interrogación
         }
+    }
+
+    private static void showMenu() {
+        //Imprimimos por consola el menú
+        System.out.println("\n"); //Este caracter especial nos permite imprimir una línea en blanco
+        System.out.println("***** CALCULADORA *****");
+        System.out.println("1. Sumar");
+        System.out.println("2. Restar");
+        System.out.println("3. Multiplicar");
+        System.out.println("4. Dividir");
+        System.out.println("5. Resto");
+        System.out.println("0. Salir del programa");
+        System.out.print("Introduzca una opcion valida: ");
     }
 }
