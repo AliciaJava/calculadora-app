@@ -1,94 +1,110 @@
 /**
- *
+ *Calculadora en Java que realiza operaciones aritméticas 
+ (suma, resta, multiplicación, división y cálculo de resto) 
+ y muestra un menú para que el usuario seleccione la operación deseada
+ * 
  * @AliciaJava 2024
  */
-package com.mycompany.calculadoraapp;
+package com.calculadora.app;
 
 import java.util.Scanner;
-/**
- * 
- * @author 2023
- */
+
 public class CalculadoraApp {
 
     public static void main(String[] args) {
 
-        //Variable donde almacenamos el valor seleccionado
-        //del menú
+        // Variable donde almacenamos el valor seleccionado del menú
         int opcion = 0;
         try (Scanner sc = new Scanner(System.in)) {
             do {
                 showMenu();
 
-                //En los mensajes opción válida he tenido que sustituido
-                //por opcion y valida sin tilde porque aparece el símbolo 
-                //de interrogación en las letras con tilde en la compilación
-                //Estas líneas de código nos permiten leer del teclado
-                //y transformar el valor leído de String a int
-                // 1) Recoger el valor escrito en el teclado
-                // 2) Transformar esa cadena de caracteres en un valor entero
-                opcion = Integer.parseInt(sc.nextLine());
+                // Leemos la opción del menú
+                opcion = getValidOption(sc);
 
-                //Si la opcion es menor que 0 o mayor que 5, no es una
-                //opción válida
+                // Si la opción es válida, procesamos los operandos
                 if (opcion < 0 || opcion > 5) {
-                    System.out.println("Opcion no valida. Vuelva a escoger");
-                    //Si la opcion es diferente a cero, solicitamos los 
-                    //dos operandos
+                    System.out.println("Opción no válida. Vuelva a escoger.");
                 } else if (opcion != 0) {
 
-                    System.out.println("\n");
+                    // Pedimos los operandos
+                    float operando1 = getOperand(sc, "Introduzca el primer operando: ");
+                    float operando2 = getOperand(sc, "Introduzca el segundo operando: ");
 
-                    float operando1, operando2;
-
-                    System.out.print("Introduzca el primer operando: ");
-                    operando1 = Float.parseFloat(sc.nextLine());
-
-                    System.out.print("Introduzca el segundo operando: ");
-                    operando2 = Float.parseFloat(sc.nextLine());
-
-                    System.out.println("\n");
+                    // Mostramos el resultado según la opción seleccionada
                     switch (opcion) {
-
-                        case 1: //Suma
+                        case 1: // Suma
                             System.out.println("El resultado de la suma es " + (operando1 + operando2));
                             break;
-                        case 2: //Resta
+                        case 2: // Resta
                             System.out.println("El resultado de la resta es " + (operando1 - operando2));
                             break;
-                        case 3: //Multiplicación
+                        case 3: // Multiplicación
                             System.out.println("El resultado de la multiplicación es " + (operando1 * operando2));
                             break;
-                        case 4: //División
-                            System.out.println("El resultado de la división es " + (operando1 / operando2));
+                        case 4: // División
+                            if (operando2 == 0) {
+                                System.out.println("Error: No se puede dividir entre cero.");
+                            } else {
+                                System.out.println("El resultado de la división es " + (operando1 / operando2));
+                            }
                             break;
-                        case 5: //Resto
-                            System.out.println("El resto de dividir " + operando1 + " entre " + operando2 + " es " + (operando1 % operando2));
+                        case 5: // Resto
+                            if (operando2 == 0) {
+                                System.out.println("Error: No se puede calcular el resto con divisor cero.");
+                            } else {
+                                System.out.println("El resto de dividir " + operando1 + " entre " + operando2 + " es " + (operando1 % operando2));
+                            }
                             break;
-
                     }
-
                 }
 
-            } while (opcion != 0); //opcion == 0 implicar salir del programa
+            } while (opcion != 0); // Salir cuando la opción sea 0
 
-            System.out.println("Finalizando la ejecucion de la calculadora");
-
-            //He tenido que sustituir ejecución con tilde y sustituirla sin 
-            //tilde porque me aparece un símbolo de interrogación
+            System.out.println("Finalizando la ejecución de la calculadora.");
         }
     }
 
+    // Método para mostrar el menú de opciones
     private static void showMenu() {
-        //Imprimimos por consola el menú
-        System.out.println("\n"); //Este caracter especial nos permite imprimir una línea en blanco
-        System.out.println("***** CALCULADORA *****");
+        System.out.println("\n***** CALCULADORA *****");
         System.out.println("1. Sumar");
         System.out.println("2. Restar");
         System.out.println("3. Multiplicar");
         System.out.println("4. Dividir");
         System.out.println("5. Resto");
         System.out.println("0. Salir del programa");
-        System.out.print("Introduzca una opcion valida: ");
+        System.out.print("Introduzca una opción válida: ");
+    }
+
+    // Método para obtener una opción válida del menú
+    private static int getValidOption(Scanner sc) {
+        int option = -1;
+        while (option < 0 || option > 5) {
+            try {
+                option = Integer.parseInt(sc.nextLine());
+                if (option < 0 || option > 5) {
+                    System.out.println("Opción no válida. Vuelva a escoger.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Por favor, ingrese un número válido.");
+            }
+        }
+        return option;
+    }
+
+    // Método para pedir un operando válido
+    private static float getOperand(Scanner sc, String prompt) {
+        float operand = 0;
+        while (true) {
+            try {
+                System.out.print(prompt);
+                operand = Float.parseFloat(sc.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número.");
+            }
+        }
+        return operand;
     }
 }
